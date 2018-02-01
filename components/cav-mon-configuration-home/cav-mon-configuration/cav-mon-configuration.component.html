@@ -1,0 +1,94 @@
+<!--<p>
+  monitors works!
+</p>-->
+
+<div class="configure">
+    <p-accordion class="mon-ui-accordion">
+       <p-accordionTab header="Configure monitor:{{monName}} for Tier:{{tierName}}" [selected]="tableAccordionState">
+       <form  (ngSubmit)="addData()" #form="ngForm" ngNativeValidate>
+
+        <div class = "ui-g-12"  *ngIf="tierId != -1" >
+         <div class="ui-g-1"  style="width:7.333%">
+                <label>Server Name</label>
+         </div>
+         <div class="ui-g-4 mbeanDrpdown">
+          <p-dropdown name="topoId" [(ngModel)]="formData.serverName" [options]="serverList" placeholder="-- Select Server Name --" [style]="{'width':'77%','margin-left': '-1px'}"  appendTo="body" required ngModel></p-dropdown>
+        </div>
+
+        <div class="ui-g-1"  style="width:7.333%">
+          <label>App Name</label>
+        </div>
+        <div class="ui-g-4 monConfigRow">
+           <input style="width:150px" type="text" name="App Name" pInputText [(ngModel)]="formData.appName"/>
+        </div>
+     </div>
+
+      <span *ngFor="let item of compArgs; let i = index">
+        <app-cav-mon-dynamic-components (updateTableVal)="updateTableData($event)" [item]="item"></app-cav-mon-dynamic-components>
+      </span>
+
+      <div class="ui-g-12">
+        <button type="submit" pButton  icon="fa-check" style="width: 63px ; float: right" *ngIf="isNewConfig == true" label="Add"></button>
+        <button type="submit" pButton  icon="fa-check" style="width: 93px ; float: right" *ngIf="isNewConfig == false" label="Update"></button>
+      </div>
+ 
+    </form>
+  </p-accordionTab>
+
+
+    <p-accordionTab header="Configured Data" [selected]="!tableAccordionState">
+        <p-dataTable class="configured-datatable" [value]="tableData" [(selection)]="selectedTableData" [rows]="5" [paginator]="weblogicStatsTableData?.length >5" [pageLinks]="3"  [resizableColumns]='true'>
+            <p-header>
+                <div  class="appIcon-css">
+                   <button pButton type="button" title="Add " (click)="openAddDialog()" icon="fa-plus"></button>
+                   <!-- <button pButton type="button" title="Edit "(click)="openEditMode()" icon="fa-pencil" ></button> -->
+                    <button pButton type="button"class="ui-button-danger" title="Delete " (click)="deleteApp()" icon="fa-trash"></button>
+                </div>
+             </p-header>
+
+        <p-column [style]="{'width':'31px'}" selectionMode="multiple">
+        </p-column>
+
+        <p-column  [style]="{'width':'109px'}" class="col-overflow" header="Server" field="serverName" >
+          <template let-col let-data="rowData" pTemplate type="body">
+            <span [title]="data[col.field]">{{data[col.field]}}</span> 
+          </template>
+        </p-column>
+
+        <p-column [style]="{'width':'130px'}" class="col-overflow" header="App Name" field="appName">
+          <template  let-col let-data="rowData" pTemplate="body">
+            <span [title]="data[col.field]">{{data[col.field]}}</span> 
+          </template>
+       </p-column>
+
+         <p-column  class="col-overflow" header="Arguments" field="arguments">
+            <template  let-col let-data="rowData" pTemplate="body">
+              <span [title]="data[col.field]">{{data[col.field]}}</span> 
+            </template>
+         </p-column>
+
+          <p-column  class="col-overflow" header="Server Arguments" field="options" hidden="true">
+            <template  let-col let-data="rowData" pTemplate="body">
+              <span [title]="data[col.field]">{{data[col.field]}}</span> 
+            </template>
+         </p-column>
+ 
+
+         <p-column [style]="{'width':'80px'}" class="col-overflow" header="Action">
+            <template let-col let-json="rowData" pTemplate type="body">
+                <a (click)="openEditMode()">
+                    <i class="fa fa-pencil" style="color: #2572b5;cursor:pointer; margin-left: 33px" title="Edit Configured Data"></i>
+                </a>
+            </template>
+         </p-column>
+
+     </p-dataTable>
+        </p-accordionTab>
+      </p-accordion>
+     </div>
+ 
+
+
+
+
+

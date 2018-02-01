@@ -1,0 +1,50 @@
+<span *ngIf="item.type == 'NewLine'" class="spanClass">
+</span>
+
+<span *ngIf="item.type == 'Note'" class="spanClass">
+  <span tooltip={{item.label}}> icon</span>
+</span>
+
+<span *ngIf="item.type == 'TextField'" class="spanClass">
+        <span  *ngIf="item.type == 'TextField' && item.label != null">
+           <label  style="margin-right: 2%;">{{item.label}}</label>
+         </span>
+<span>
+          <input [disabled]="disabled" name={{item.label}} type="text"  *ngIf="item.type == 'TextField'"  [(ngModel)]="item.value" class="spanClass2"  title="{{item.modal}}" required ng-model/>
+          </span>
+</span>
+
+<span *ngIf="item.type == 'Checkbox'" class="spanClass">   
+          <p-checkbox  binary="false"  [disabled]="disabled" name="item.label" [(ngModel)]="item.value " label="{{item.label}}" ></p-checkbox>
+        </span>
+
+<span *ngIf="item.type == 'Spinner'" class="spanClass">
+             <label *ngIf="item.type == 'Spinner'" style="margin-right: 2%;">{{item.label}}</label>
+             <p-spinner  [disabled]="disabled" name="item.label" [min]="0" [max]="100" size="4"  [(ngModel)]="item.value"  *ngIf="item.type == 'Spinner'" class="spanClass2"></p-spinner>
+        </span>
+
+<span *ngIf="item.type == 'Dropdown'" class="spanClass">
+           <label  style="margin-right: 2%;">{{item.label}}</label>   
+           <p-dropdown [style]="{'width':'auto'}" name="list" [disabled]="disabled" placeholder= "-- Select --"  [options]="item.dropDownList" [(ngModel)]="item.value" class="spanClass2"></p-dropdown>
+        </span>
+
+<span *ngIf="item.type == 'RadioButtonGroup'" class="spanClass">
+          <span  *ngFor="let each of item.items">
+            <p-radioButton  class="innerSpanClass" name="item.label"  [label] ="each.label" [value] ="each.value" [(ngModel)]="item.value"></p-radioButton>
+            <span  *ngIf="each.dependentComp != null" >
+              <app-cav-mon-dynamic-dependent-comp  (updateTableVal)="updateTableValue($event)"  [disabled]="item.value != each.arg" [dependentCompData]="each.dependentComp"></app-cav-mon-dynamic-dependent-comp>
+            </span>
+</span>
+</span>
+
+<span *ngIf="item.type == 'FieldSet'" class="fieldSetCss">
+         <p-fieldset  [style]="{'font-size':'13px' }"  legend={{item.label}} [toggleable]="true" collapsed="true">
+            <span  *ngIf="item.dependentComp != null" >
+              <app-cav-mon-dynamic-dependent-comp  (updateTableVal)="updateTableValue($event)"   [dependentCompData]="item.dependentComp"></app-cav-mon-dynamic-dependent-comp>
+            </span>
+</p-fieldset>
+</span>
+
+<div class="tableCss" *ngIf="item.type == 'Table'">
+  <app-cav-mon-dynamic-table *ngIf="item.type == 'Table'" (updateTableVal)="updateTableValue($event)" [tableCompData]="item" [disabled]="disabled"></app-cav-mon-dynamic-table>
+</div>
