@@ -10,7 +10,7 @@
 
     <div class="ui-g mon-hometable">
         <!--For showing Session Attribute(s) list -->
-        <p-dataTable class="mon-ui" [value]="profileTableData" [(selection)]="selectedProfile" [rows]="5" [paginator]="jsonsTableData?.length >5"
+        <p-dataTable class="mon-ui" [value]="profileTableData" [(selection)]="selectedProfile" [rows]="5" [paginator]="profileTableData?.length >10"
             [pageLinks]="3" [style]="{'height':'200px'}">
             <p-header>
                 <span style="font-size:13px"><b>Available Monitor Profile(s)</b></span>
@@ -23,67 +23,58 @@
                     <button pButton type="button" class="ui-button-danger" (click)="deleteProfile()" title="Delete Profile(s)" icon="fa-trash-o"></button>
                 </div>
             </p-header>
-            <p-headerColumnGroup>
-                <p-row>
-                    <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-                    <p-column class="col-overflow" header="Profile Name" [sortable]="true" [filter]="isShowFilter"></p-column>
-                    <p-column class="col-overflow" header="Description" [sortable]="true" [filter]="isShowFilter"></p-column>
-                    <p-column class="col-overflow" header="Owner" [sortable]="true" [filter]="isShowFilter"></p-column>
-                    <p-column class="col-overflow" header="Last Updated By" [sortable]="true" [filter]="isShowFilter"></p-column>
-                    <p-column class="col-overflow" header="Last Modified" [sortable]="true" [filter]="isShowFilter"></p-column>
-                    <p-column class="col-overflow" [style]="{'width':'141px'}" header="Actions" [sortable]="true" [filter]="isShowFilter"></p-column>
-                </p-row>
 
-            </p-headerColumnGroup>
+            <p-column [style]="{'width':'21px'}" selectionMode="multiple"></p-column>
+            <p-column [style]="{'width':'150px'}" class="col-overflow" field="profileName" header="Profile Name" [sortable]="true" [filter]="isShowFilter">
+                <template let-col let-json="rowData" pTemplate type="body">
+                    <span title="{{json[col.field]}}"> <a class="hyperlink" (click)="routeToConfiguration(json['profileName'],selectedTopology)" >{{json[col.field]}}</a></span>
+                </template>
+            </p-column>
+    
+            <p-column [style]="{'width':'380px'}" class="col-overflow" field="desc" header="Description" [sortable]="true" [filter]="isShowFilter">
+                <template let-col let-json="rowData" pTemplate type="body">
+                    <span title="{{json[col.field]}}">{{json[col.field]}}</span>
+                </template>
+            </p-column>
+    
+            <p-column [style]="{'width':'136px'}" class="col-overflow" field="createdBy" header="Owner" [sortable]="true" [filter]="isShowFilter">
+                <template let-col let-json="rowData" pTemplate type="body">
+                        <span title="{{json[col.field]}}">{{json[col.field]}}</span>
+                </template>
+            </p-column>
+    
+             <p-column [style]="{'width':'162px'}" class="col-overflow" field="lastUpdatedBy" header="Last Updated By" [sortable]="true" [filter]="isShowFilter">
+                <template let-col let-json="rowData" pTemplate type="body">
+                        <span title="{{json[col.field]}}">{{json[col.field]}}</span>
+                </template>
+            </p-column>
 
-            <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-            <p-column field="profileName">
+            <p-column  [style]="{'width':'218px'}" class="col-overflow" field="lastUpdatedOn" header="Last Modified" [sortable]="true" [filter]="isShowFilter">
                 <template let-col let-json="rowData" pTemplate type="body">
-                    <span title="{{json[col.field]}}"> <a class="hyperlink" (click)="editProfile(json['profileName'],selectedTopology)" >{{json[col.field]}}</a></span>
-                </template>
+                           <span style="margin-left :136px" title="{{json[col.field]}}">{{json[col.field]}}</span>
+                        </template>
             </p-column>
-            <p-column field="desc">
+
+            <p-column [style]="{'width':'99px'}" class="col-overflow"  header="Actions" [sortable]="true" [filter]="isShowFilter">
                 <template let-col let-json="rowData" pTemplate type="body">
-                    <span title="{{json[col.field]}}">{{json[col.field]}}</span>
-                </template>
-            </p-column>
-            <p-column field="createdBy">
-                <template let-col let-json="rowData" pTemplate type="body">
-                    <span title="{{json[col.field]}}">{{json[col.field]}}</span>
-                </template>
-            </p-column>
-            <p-column field="lastUpdatedBy">
-                <template let-col let-json="rowData" pTemplate type="body">
-                    <span title="{{json[col.field]}}">{{json[col.field]}}</span>
-                </template>
-            </p-column>
-            <p-column field="lastUpdatedOn" [style]="{'text-align':'right'}">
-                <template let-col let-json="rowData" pTemplate type="body">
-                    <span title="{{json[col.field]}}">{{json[col.field]}}</span>
-                </template>
-            </p-column>
-            <p-column>
-                <template let-col let-json="rowData" pTemplate type="body">
-                    <a (click)="editProfile1()">
+                    <a (click)="editProfile()">
                         <i class="fa fa-pencil" style="color: #2572b5;cursor:pointer; margin-left: 28px" title="Edit Profile"></i>
                     </a>
-
-                    <!-- <span  (click)="deleteProfile(selectedTopology,json['profileName'])">
-                                    <i class="fa fa-trash-o" style="color: #f12a2a;cursor:pointer; margin-left: 20px" title="Delete Profile"></i>
-                                </span> -->
-                    <span (click)="importProfile()">
-                                    <i class="fa fa-download" style="color: #2572b5;cursor:pointer; margin-left: 20px" title="Import Profile"></i>
-                                </span>
-
+                          
+                     <span  (click)="importProfile(json)">
+                        <i class="fa fa-download" style="color: #2572b5;cursor:pointer; margin-left: 20px" title="Import Profile"></i>
+                    </span>
+                    
                 </template>
             </p-column>
+ 
         </p-dataTable>
     </div>
 
 
     <!--Dialog for adding MJson-->
 
-    <p-dialog class="profile-dialog" header="{{isNewMJson ? 'New MJson' : 'Edit MJson'}}" *ngIf="addProfileDialog" [(visible)]="addProfileDialog"
+    <p-dialog class="profile-dialog" header="Add Profile" *ngIf="addProfileDialog" [(visible)]="addProfileDialog"
         modal="modal" width="500" responsive="true">
         <form (ngSubmit)="saveEditProfile(selectedTopology, addProfile)" #groupForm="ngForm" ngNativeValidate>
             <div class="ui-g">

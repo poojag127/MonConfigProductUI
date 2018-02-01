@@ -13,6 +13,7 @@ export const GET_TIER_LIST = `getTiers`;
 export const GET_TOPO_LIST = `getListOfTopology`;
 export const GET_PROFILE_LIST = `getProfileListFromTopo/`;
 export const DEL_PROFILE = `deleteProfile`; // url to delete profiles from the home screen
+export const IMPORT_PROFILE = `downloadProfile`;//url  for downloading profile 
 
 
 export const GET_SERVER_LIST = `getServerList`; 

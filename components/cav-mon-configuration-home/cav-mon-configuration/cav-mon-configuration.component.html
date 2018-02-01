@@ -4,7 +4,7 @@
 
 <div class="configure">
     <p-accordion class="mon-ui-accordion">
-       <p-accordionTab header="Configure monitor:{{monName}} for Tier:{{tierName}}" [selected]="tableAccordionState">
+       <p-accordionTab header="Configure monitor:{{monName}} for Tier:{{tierName}}" [selected]="true">
        <form  (ngSubmit)="addData()" #form="ngForm" ngNativeValidate>
 
         <div class = "ui-g-12"  *ngIf="tierId != -1" >
@@ -36,7 +36,7 @@
   </p-accordionTab>
 
 
-    <p-accordionTab header="Configured Data" [selected]="!tableAccordionState">
+    <p-accordionTab header="Configured Data" [selected]="true">
         <p-dataTable class="configured-datatable" [value]="tableData" [(selection)]="selectedTableData" [rows]="5" [paginator]="weblogicStatsTableData?.length >5" [pageLinks]="3"  [resizableColumns]='true'>
             <p-header>
                 <div  class="appIcon-css">

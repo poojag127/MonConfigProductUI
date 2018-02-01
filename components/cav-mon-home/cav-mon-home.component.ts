@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from '../../services/message.service';
+import {Message, ConfirmationService} from 'primeng/primeng';
+
 
 
 @Component({
@@ -15,8 +17,11 @@ export class CavMonHomeComponent implements OnInit {
   color: string = "primary";
   calcheight : String = "340px";
 
-  ngOnInit() {
   
+  message: Message[] = [];
+
+  ngOnInit() {
+    this.messageService.messageProvider$.subscribe(data=> this.message = data);
     this.messageService.progressBarProvider$.subscribe(flag=> {
       //For resolve this error in Dev Mode add Timeout method -> Error: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked.
       setTimeout(()=>{

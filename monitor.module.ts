@@ -10,10 +10,11 @@ import { Md2Module } from 'md2';
 import { Logger, Options as LoggerOptions, Level as LoggerLevel } from '../../../vendors/angular2-logger/core';
 
 
-import { AccordionModule, DataTableModule, ContextMenuModule, MultiSelectModule, 
+import {
+  AccordionModule, DataTableModule, ContextMenuModule, MultiSelectModule,
   ConfirmDialogModule, InputTextModule, ButtonModule, DialogModule, DropdownModule, FieldsetModule, RadioButtonModule,
-  CheckboxModule, ListboxModule, InputTextareaModule, TreeTableModule,SharedModule, FileUploadModule, PaginatorModule, PanelModule, SpinnerModule,
-  GrowlModule,BreadcrumbModule
+  CheckboxModule, ListboxModule, InputTextareaModule, TreeTableModule, SharedModule, FileUploadModule, PaginatorModule, PanelModule, SpinnerModule,
+  GrowlModule, BreadcrumbModule, MessagesModule
 } from 'primeng/primeng';
 
 import { BlockUIModule } from 'ng-block-ui';
@@ -50,35 +51,35 @@ import { MonitorCompReducer } from './reducers/monitor-comp-reducer';
 
 @NgModule({
   declarations: [
-   
-  CavMonProfilesComponent,
-   
-  CavMonConfigurationHomeComponent,
-   
-  CavMonDynamicComponentsComponent,
-   
-  CavMonBreadcrumbComponent,
-   
-  CavMonConfigurationComponent,
-   
-  CavMonToolbarComponent,
-   
-  CavMonStatsComponent,
-   
-  CavMonHideShowComponent,
-  
-  CavMonDynamicTableComponent,
-   
-  CavMonDynamicDependentCompComponent,
-   
-  CavMonConfigurationRoutingComponent,
 
-  CavMonHomeComponent,
+    CavMonProfilesComponent,
 
-  CavMonRightPaneComponent
-  
+    CavMonConfigurationHomeComponent,
+
+    CavMonDynamicComponentsComponent,
+
+    CavMonBreadcrumbComponent,
+
+    CavMonConfigurationComponent,
+
+    CavMonToolbarComponent,
+
+    CavMonStatsComponent,
+
+    CavMonHideShowComponent,
+
+    CavMonDynamicTableComponent,
+
+    CavMonDynamicDependentCompComponent,
+
+    CavMonConfigurationRoutingComponent,
+
+    CavMonHomeComponent,
+
+    CavMonRightPaneComponent
+
   ],
-  
+
   imports: [
     CommonModule,
     FormsModule,
@@ -102,18 +103,19 @@ import { MonitorCompReducer } from './reducers/monitor-comp-reducer';
     MaterialModule,
     TreeTableModule,
     SharedModule,
-    FileUploadModule, 
+    FileUploadModule,
     PaginatorModule,
     SpinnerModule,
     MonitorRoutingModule,
     GrowlModule,
     BreadcrumbModule,
-    StoreModule.provideStore({ monitorData: MonitorReducer ,selectedMon:MonitorCompReducer}),
+    MessagesModule,
+    StoreModule.provideStore({ monitorData: MonitorReducer, selectedMon: MonitorCompReducer }),
   ],
   providers: [
     { provide: LoggerOptions, useValue: { level: LoggerLevel.DEBUG } },
     Logger, MonDataService, MonProfileService, RestApiService, UtilityService, MonConfigurationService, MessageService
-    
+
   ],
 
   /*Required for opening in model window. */

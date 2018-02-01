@@ -41,4 +41,13 @@ export class MonProfileService {
         return this._restApi.getDataByGetReq(url);
     }
 
+    
+    /**Method to call service to download(import) selected profile  */
+    downloadProfile(topoName,profileName)
+    {
+      let url = this.monDataService.getserviceURL() + URL.IMPORT_PROFILE + "?topoName=" + `${topoName}` + "&profileName=" + `${profileName}` + "&userName=netstorm";
+      console.log("url for download--", url)
+      return this._restApi.getDataByGetReq(url);
+    }
+
 }

@@ -1,10 +1,11 @@
 <p-panel class="monConfigPanel">
   <p-header>
+    <span>
     <b> Topology Name :</b> {{topoName}}
-    <span><b> Profile Name :</b> {{profileName}} </span>
+    <span><b> Profile Name :</b> {{profileName}} </span></span>
     <div style="float: right">
-      <button pButton type="button" label="Reset" icon="fa fa-refresh"></button>
-      <button pButton (click)="saveMonitorsConfigurationData()" type="button" label="Save" icon="fa-check"></button>
+      <button pButton type="button" label="Reset" icon="fa fa-refresh" style="background:#6495ed"></button>
+      <button pButton (click)="saveMonitorsConfigurationData()" type="button" label="Save" icon="fa-check" style="background:#6495ed"></button>
     </div>
   </p-header>
 

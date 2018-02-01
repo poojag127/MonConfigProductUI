@@ -20,8 +20,6 @@ export class CavMonConfigurationHomeComponent implements OnInit {
   cols: any[] = [];
   compData: TreeNode[];
 
-   checkBoxStateArr:any[]=[]; //used for storing state of checkboxes at tier level
-
   constructor(private monConfServiceObj: MonConfigurationService,
               private router:Router,
               private route: ActivatedRoute,
@@ -66,42 +64,6 @@ export class CavMonConfigurationHomeComponent implements OnInit {
     }
   }
 
- /**
-  * 
-  * @param value 
-  * @param tierName 
-  * @param monitorName 
-  */
-
-  onCheckBoxChange(value,tierName,monitorName)
-  {
-   console.log("onCheckBoxChange method called--",value)
-   console.log("tierName--",tierName)
-   console.log("monName-- ", monitorName)
- 
-   let key = monitorName + tierName;
-   console.log("key---" ,key)
-
-   let isEntryExist:boolean = false;
-   let temp = this.checkBoxStateArr;
-   for(let i = 0;i < temp.length; i++)
-   {
-     if(Object.keys(temp[i])[0] == tierName)
-     {
-       isEntryExist = true;
-       temp[i] = value;
-       break;
-     }
-   }
-
-   if(!isEntryExist)
-   {
-     let obj = {[key]:value}
-     this.checkBoxStateArr.push(obj)
-   }
-   console.log("this.checkBoxStateArr--",this.checkBoxStateArr)
- }
-
     /*** for advance settings ***/
   advanceSettings(monData,tierId,tierName)
   {
@@ -109,13 +71,7 @@ export class CavMonConfigurationHomeComponent implements OnInit {
     let currNode = monData["data"];
     console.log("currNode-",currNode)
     let monName = currNode["monitor"];
-/**
- * 
- *//**
- * 
- *//**
- * 
- */    console.log("monData--",monData)
+    console.log("monData--",monData)
     console.log("monName",monName)
     if(monName.startsWith('Weblogic'))
     {
@@ -145,7 +101,3 @@ export class CavMonConfigurationHomeComponent implements OnInit {
     }
   }
 }
-
-
-
-
